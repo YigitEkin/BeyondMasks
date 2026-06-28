@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="BeyondMasks is an ECCV 2026 paired benchmark for evaluating causal and physical consistency in video object removal beyond the object mask.">
+  <meta name="keywords" content="BeyondMasks, ECCV 2026, video object removal, video inpainting, benchmark dataset, paired video benchmark, causal consistency, physical consistency, after-effect removal, object-induced effects, clean reference videos, CORE evaluation, vision-language model evaluation">
+  <meta name="author" content="Yiğit Ekin, Enes Sanli, Aykut Erdem, Erkut Erdem, Aysegul Dundar">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://yigitekin.github.io/BeyondMasks/">
+
+  <meta property="og:title" content="BeyondMasks: Evaluating Causal and Physical Consistency in Video Object Removal">
+  <meta property="og:description" content="ECCV 2026 paired benchmark for evaluating whether video object removal methods eliminate both target objects and object-induced after-effects.">
+  <meta property="og:url" content="https://yigitekin.github.io/BeyondMasks/">
+  <meta property="og:site_name" content="BeyondMasks">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/paper/teaser.png">
+  <meta property="og:image:width" content="965">
+  <meta property="og:image:height" content="550">
+  <meta property="og:image:alt" content="BeyondMasks benchmark examples for causal and physical consistency in video object removal">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BeyondMasks: Evaluating Causal and Physical Consistency in Video Object Removal">
+  <meta name="twitter:description" content="ECCV 2026 paired benchmark for video object removal beyond the object mask, with clean references and CORE evaluation.">
+  <meta name="twitter:image" content="assets/paper/teaser.png">
+  <meta name="twitter:image:alt" content="BeyondMasks benchmark examples for causal and physical consistency in video object removal">
+
+  <title>BeyondMasks | ECCV 2026 Video Object Removal Benchmark</title>
+  <link rel="icon" type="image/png" href="assets/paper/teaser.png">
+  <link rel="stylesheet" href="assets/stylesheets/project.css">
+  <script src="https://www.w3counter.com/tracker.js?id=152604"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="#top" aria-label="BeyondMasks home">BeyondMasks</a>
+    <nav aria-label="Main navigation">
+      <a href="#motivation">Overview</a>
+      <a href="#videos">Videos</a>
+      <a href="#benchmark">Dataset</a>
+      <a href="#core">CORE</a>
+      <a href="#citation">Citation</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero section-shell">
+      <div class="venue-pill">
+        <span class="venue-name">ECCV26</span>
+        <span class="venue-status">Accepted Paper</span>
+      </div>
+      <h1><span>BeyondMasks:</span> Evaluating Causal and Physical Consistency in Video Object Removal</h1>
+      <p class="hero-tldr">A paired benchmark for video object removal beyond the mask</p>
+
+      <div class="authors" aria-label="Paper authors">
+        <a href="https://yigitekin.github.io/">Yiğit Ekin<sup>1,*</sup></a>
+        <a href="https://openreview.net/profile?id=~Enes_Sanli1">Enes Sanli<sup>2,4,*</sup></a>
+        <a href="https://aykuterdem.github.io/">Aykut Erdem<sup>2,4</sup></a>
+        <a href="https://web.cs.hacettepe.edu.tr/~erkut/">Erkut Erdem<sup>3,4</sup></a>
+        <a href="https://www.cs.bilkent.edu.tr/~adundar/">Aysegul Dundar<sup>1</sup></a>
+      </div>
+      <p class="affiliations">
+        <sup>1</sup>Bilkent University &nbsp; <sup>2</sup>Koc University &nbsp;
+        <sup>3</sup>Hacettepe University &nbsp; <sup>4</sup>KUIS AI Center
+        <small>* Equal contribution</small>
+      </p>
+
+      <div class="hero-actions">
+        <a class="button primary" href="#">
+          <span class="button-icon">↗</span> Paper
+        </a>
+        <a class="button" href="https://github.com/YigitEkin/BeyondMasks">
+          <span class="button-icon">⌘</span> Code
+        </a>
+        <a class="button" href="https://huggingface.co/datasets/yigitekin/BeyondMasks">
+          <span class="">🤗</span> Dataset
+        </a>
+      </div>
+
+    </section>
+
+    <section id="motivation" class="section-shell narrow section-block">
+      <div class="section-label">Overview</div>
+      <h2>A benchmark for evaluating removal beyond the object mask.</h2>
+      <p class="lead">
+        BeyondMasks evaluates whether video object removal methods eliminate both the target object and
+        the visual effects it induces in the surrounding scene, including shadows, reflections,
+        translucency, steam, illumination changes, and dynamic traces.
+      </p>
+      <p>
+        Most prior video object removal benchmarks primarily evaluate masked reconstruction or visual
+        plausibility, and often do not provide aligned clean-reference videos. While recent benchmarks
+        such as ROSE-Bench begin to study object-related side effects, BeyondMasks expands this setting
+        with paired synthetic and real-world videos, broader after-effect categories, object-only masks,
+        and support for both mask-guided and instruction-driven removal.
+      </p>
+
+      <div class="contribution-grid">
+        <article><strong>01</strong><h3>Paired references</h3><p>Provide aligned videos before and after object removal, enabling direct comparison to clean scene states.</p></article>
+        <article><strong>02</strong><h3>After-effect coverage</h3><p>Include object-induced effects that extend outside the object mask and are common in real removal tasks.</p></article>
+        <article><strong>03</strong><h3>CORE evaluation</h3><p>Report object removal and after-effect removal as separate scores under a structured evaluation protocol.</p></article>
+        <article><strong>04</strong><h3>Model analysis</h3><p>Evaluate mask-based, text-guided, and hybrid systems to identify where current methods fail.</p></article>
+      </div>
+    </section>
+
+    <section id="videos" class="section-block panel-section video-section">
+      <div class="section-shell">
+        <div class="section-heading split-heading">
+          <div>
+            <div class="section-label">Paired video examples</div>
+            <h2>Example paired samples from the benchmark.</h2>
+            <p class="section-subnote">We include nine benchmark groups covering object-induced after-effects and real-world captures; representative paired examples are shown below.</p>
+          </div>
+        </div>
+
+        <div class="benchmark-category-tabs" id="benchmark-category-tabs" role="tablist" aria-label="Benchmark video categories"></div>
+        <div class="benchmark-groups" id="benchmark-video-groups"></div>
+      </div>
+    </section>
+
+    <section id="benchmark" class="section-block panel-section">
+      <div class="section-shell">
+        <div class="section-heading split-heading">
+          <div>
+            <div class="section-label">Dataset construction</div>
+            <h2>How we created the BeyondMasks benchmark.</h2>
+            <p class="section-subnote">BeyondMasks contains 110 paired videos across synthetic and real-world scenes, with aligned clean references, per-frame object masks, and validated removal prompts. After-effect categories are not mutually exclusive; a single video may contain multiple interaction types.</p>
+          </div>
+        </div>
+
+        <div class="collection-summary">
+          <article><span>Synthetic pairs</span><h3>Controlled object insertion</h3><p>We first generate a clean background video, then insert the target object and its associated after-effects using controlled video editing. Because the object-present video is derived from the clean reference, the pair remains temporally aligned.</p></article>
+          <article><span>Real-world pairs</span><h3>Back-to-back capture</h3><p>We record each real scene with the object present and then capture the same scene after removing the object, using a tripod-stabilized setup. This preserves viewpoint and composition while introducing natural lighting, texture, and interaction complexity.</p></article>
+          <article><span>Annotations</span><h3>Object-only masks and prompts</h3><p>We annotate temporally consistent masks for the target object only, leaving shadows, reflections, illumination changes, and other after-effects unmasked. Each sample also includes validated removal prompts for instruction-driven editing.</p></article>
+        </div>
+
+        <div class="stats" aria-label="Benchmark statistics">
+          <div><strong>110</strong><span>paired videos</span></div>
+          <div><strong>90</strong><span>synthetic scenes</span></div>
+          <div><strong>20</strong><span>real captures</span></div>
+          <div><strong>~8s</strong><span>average length</span></div>
+        </div>
+
+        <figure class="paper-figure figure-card">
+          <img src="assets/paper/benchmark-pipeline.png" alt="BeyondMasks paired data creation, annotation strategy, and after-effect taxonomy">
+          <figcaption><b>Benchmark construction.</b> Synthetic and real-world pairs provide aligned object-present and clean-reference videos. Object masks exclude downstream effects such as shadows and reflections.</figcaption>
+        </figure>
+
+      </div>
+    </section>
+
+    <section id="core" class="section-shell section-block">
+      <div class="section-heading split-heading">
+        <div>
+          <div class="section-label">Evaluation protocol</div>
+          <h2>CORE: Causal Object Removal Evaluation.</h2>
+          <p class="section-subnote">CORE evaluates each edited result using three temporally aligned videos: the object-present input, the clean reference, and the model output. It asks a VLM judge to compare the output against the clean reference and score object removal separately from after-effect removal.</p>
+        </div>
+      </div>
+
+      <div class="metric-need">
+        <span>Why CORE</span>
+        <p>Pixel metrics such as PSNR, SSIM, and LPIPS measure reconstruction similarity, but they can miss whether residual errors come from the target object or from object-induced effects such as shadows, reflections, illumination changes, and dynamic traces.</p>
+      </div>
+
+      <figure class="paper-figure figure-card light-figure">
+        <img src="assets/paper/core-overview.png" alt="CORE evaluation workflow with input videos, VLM reasoning stages, and output scores">
+      </figure>
+
+      <h3 class="score-intro">Two complementary CORE scores</h3>
+
+      <div class="score-grid">
+        <article>
+          <div class="score-mark">OS</div>
+          <div><h3>ObjectScore</h3><p>Measures the completeness of target-object removal and the plausibility of the restored background.</p></div>
+        </article>
+        <article>
+          <div class="score-mark accent">AES</div>
+          <div><h3>AfterEffectScore</h3><p>Measures whether object-induced physical traces, including shadows, reflections, illumination changes, and dynamic perturbations, are eliminated.</p></div>
+        </article>
+      </div>
+
+      <div class="validation-note">
+        <span>Human alignment</span>
+        <p>CORE correlates with human judgments at <b>0.62</b> for ObjectScore and <b>0.73</b> for AfterEffectScore using Gemini, with similar agreement using GPT-based judging (<b>0.60</b> and <b>0.76</b>).</p>
+      </div>
+    </section>
+
+    <section id="citation" class="section-shell narrow section-block citation-section">
+      <div class="section-label">Citation</div>
+      <h2>Cite BeyondMasks</h2>
+      <div class="code-block">
+        <button id="copy-citation" type="button" aria-label="Copy BibTeX">Copy</button>
+        <pre><code id="bibtex">TODO</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>BeyondMasks · ECCV 2026</span>
+    <span>Built from the <a href="https://github.com/lorenmt/clarity-template">Clarity template</a>.</span>
+  </footer>
+  <script src="assets/scripts/project.js"></script>
+</body>
+</html>
