@@ -20,8 +20,8 @@ const benchmarkGroups = [
   { label: 'Light source', ids: ['136', '133', '132'] },
   { label: 'Steam', ids: ['16', '137', '134'] },
   { label: 'Translucent', ids: ['25', '97', '84'] },
-  { label: 'Causal', ids: ['21', '89', '72'] },
-  { label: 'Fast motion', ids: ['50', '65', '73'] },
+  { label: 'Causal physical effects', ids: ['21', '89', '72'] },
+  { label: 'Fast Motion Scenes', ids: ['50', '65', '73'] },
   { label: 'No after-effect', ids: ['49', '52', '53'] },
   { label: 'Real-world videos', ids: ['117', '112', '113'] },
 ];

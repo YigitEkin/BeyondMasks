@@ -85,7 +85,7 @@
       <p class="lead">
         BeyondMasks evaluates whether video object removal methods eliminate both the target object and
         the visual effects it induces in the surrounding scene, including shadows, reflections,
-        translucency, steam, illumination changes, and dynamic traces.
+        translucency, steam, illumination changes, and fast motion scenes.
       </p>
       <p>
         Most prior video object removal benchmarks primarily evaluate masked reconstruction or visual
@@ -109,7 +109,7 @@
           <div>
             <div class="section-label">Paired video examples</div>
             <h2>Example paired samples from the benchmark.</h2>
-            <p class="section-subnote">We include nine benchmark groups covering object-induced after-effects and real-world captures; representative paired examples are shown below.</p>
+            <p class="section-subnote">We include benchmark groups covering object-induced after-effects and real-world captures; representative paired examples are shown below.</p>
           </div>
         </div>
 
@@ -124,21 +124,21 @@
           <div>
             <div class="section-label">Dataset construction</div>
             <h2>How we created the BeyondMasks benchmark.</h2>
-            <p class="section-subnote">BeyondMasks contains 110 paired videos across synthetic and real-world scenes, with aligned clean references, per-frame object masks, and validated removal prompts. After-effect categories are not mutually exclusive; a single video may contain multiple interaction types.</p>
+            <p class="section-subnote">BeyondMasks contains 180 paired videos across synthetic and real-world scenes, with aligned clean references, per-frame object masks, and validated removal prompts. After-effect categories are not mutually exclusive; a single video may contain multiple interaction types.</p>
           </div>
         </div>
 
         <div class="collection-summary">
           <article><span>Synthetic pairs</span><h3>Controlled object insertion</h3><p>We first generate a clean background video, then insert the target object and its associated after-effects using controlled video editing. Because the object-present video is derived from the clean reference, the pair remains temporally aligned.</p></article>
-          <article><span>Real-world pairs</span><h3>Back-to-back capture</h3><p>We record each real scene with the object present and then capture the same scene after removing the object, using a tripod-stabilized setup. This preserves viewpoint and composition while introducing natural lighting, texture, and interaction complexity.</p></article>
+          <article><span>Real-world pairs</span><h3>Back-to-back capture</h3><p>We record each real scene with the object present and immediately capture a second video after removing the object, using a tripod-stabilized setup. This preserves viewpoint and composition while introducing natural lighting, texture, and interaction complexity.</p></article>
           <article><span>Annotations</span><h3>Object-only masks and prompts</h3><p>We annotate temporally consistent masks for the target object only, leaving shadows, reflections, illumination changes, and other after-effects unmasked. Each sample also includes validated removal prompts for instruction-driven editing.</p></article>
         </div>
 
         <div class="stats" aria-label="Benchmark statistics">
-          <div><strong>110</strong><span>paired videos</span></div>
+          <div><strong>180</strong><span>paired videos</span></div>
           <div><strong>90</strong><span>synthetic scenes</span></div>
-          <div><strong>20</strong><span>real captures</span></div>
-          <div><strong>~8s</strong><span>average length</span></div>
+          <div><strong>90</strong><span>real captures</span></div>
+          <div><strong>~5.5s</strong><span>average length</span></div>
         </div>
 
         <figure class="paper-figure figure-card">
@@ -160,7 +160,7 @@
 
       <div class="metric-need">
         <span>Why CORE</span>
-        <p>Pixel metrics such as PSNR, SSIM, and LPIPS measure reconstruction similarity, but they can miss whether residual errors come from the target object or from object-induced effects such as shadows, reflections, illumination changes, and dynamic traces.</p>
+        <p>Pixel metrics such as PSNR, SSIM, and LPIPS measure reconstruction similarity, but they can miss whether residual errors come from the target object or from object-induced effects such as shadows, reflections, illumination changes, and fast motion scenes.</p>
       </div>
 
       <figure class="paper-figure figure-card light-figure">
