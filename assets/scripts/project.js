@@ -56,43 +56,6 @@ function syncPlayback(videos) {
   videos.forEach((video) => video.addEventListener('loadedmetadata', () => seekAll(0)));
 }
 
-function createMaskRenderer(canvas, maskVideo) {
-  const context = canvas.getContext('2d');
-  const buffer = document.createElement('canvas');
-  const bufferContext = buffer.getContext('2d', { willReadFrequently: true });
-  let animationFrame = 0;
-
-  const render = () => {
-    if (maskVideo.readyState >= 2) {
-      const width = maskVideo.videoWidth;
-      const height = maskVideo.videoHeight;
-      if (canvas.width !== width || canvas.height !== height) {
-        canvas.width = buffer.width = width;
-        canvas.height = buffer.height = height;
-      }
-      bufferContext.clearRect(0, 0, width, height);
-      bufferContext.drawImage(maskVideo, 0, 0, width, height);
-      const frame = bufferContext.getImageData(0, 0, width, height);
-      for (let index = 0; index < frame.data.length; index += 4) {
-        const luminance = Math.round(frame.data[index] * 0.2126 + frame.data[index + 1] * 0.7152 + frame.data[index + 2] * 0.0722);
-        frame.data[index] = 96;
-        frame.data[index + 1] = 165;
-        frame.data[index + 2] = 250;
-        frame.data[index + 3] = Math.round(luminance * 0.55);
-      }
-      bufferContext.putImageData(frame, 0, 0);
-      context.clearRect(0, 0, width, height);
-      context.drawImage(buffer, 0, 0, width, height);
-    }
-    animationFrame = requestAnimationFrame(render);
-  };
-
-  return {
-    start() { if (!animationFrame) animationFrame = requestAnimationFrame(render); },
-    stop() { cancelAnimationFrame(animationFrame); animationFrame = 0; },
-  };
-}
-
 const videoObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     const videos = entry.target.querySelectorAll('video');
@@ -101,10 +64,8 @@ const videoObserver = new IntersectionObserver((entries) => {
         loadVideo(video);
         video.play().catch(() => {});
       });
-      entry.target._maskRenderer.start();
     } else {
       videos.forEach((video) => video.pause());
-      entry.target._maskRenderer.stop();
     }
   });
 }, { rootMargin: '120px 0px', threshold: 0.15 });
@@ -118,16 +79,13 @@ function createBenchmarkCard(id) {
   stage.className = 'comparison-stage';
   const inputLayer = document.createElement('div');
   inputLayer.className = 'comparison-layer input-layer';
-  const inputVideo = createLazyVideo('fg_clip', id, 'comparison-video');
-  const maskCanvas = document.createElement('canvas');
-  maskCanvas.className = 'mask-overlay';
-  inputLayer.append(inputVideo, maskCanvas);
+  const inputVideo = createLazyVideo('fg_mask_clip', id, 'comparison-video');
+  inputLayer.append(inputVideo);
 
   const referenceLayer = document.createElement('div');
   referenceLayer.className = 'comparison-layer reference-layer';
   const referenceVideo = createLazyVideo('bg_clip', id, 'comparison-video');
   referenceLayer.append(referenceVideo);
-  const maskVideo = createLazyVideo('masks_clip', id, 'mask-source');
 
   const divider = document.createElement('div');
   divider.className = 'comparison-divider';
@@ -143,11 +101,10 @@ function createBenchmarkCard(id) {
   range.setAttribute('aria-label', `Compare foreground and clean reference for video ${id}`);
   range.addEventListener('input', () => card.style.setProperty('--slider-position', `${range.value}%`));
 
-  stage.append(inputLayer, referenceLayer, maskVideo, divider, handle, range);
+  stage.append(inputLayer, referenceLayer, divider, handle, range);
   card.append(stage);
 
-  syncPlayback([referenceVideo, inputVideo, maskVideo]);
-  card._maskRenderer = createMaskRenderer(maskCanvas, maskVideo);
+  syncPlayback([referenceVideo, inputVideo]);
   videoObserver.observe(card);
   return card;
 }
