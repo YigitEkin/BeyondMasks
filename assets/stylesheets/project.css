@@ -266,3 +266,10 @@ footer{color:#667386}
     border-radius: 9px;
   }
 }
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 30px 0 52px;
+}
