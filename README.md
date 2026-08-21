@@ -368,5 +368,13 @@ This work was partly supported by the KUIS AI Center Research Awards and the TÜ
 ### BibTeX
 
 ```bibtex
-TODO
+@misc{ekin2026beyondmasksevaluatingcausalphysical,
+      title={BeyondMasks: Evaluating Causal and Physical Consistency in Video Object Removal}, 
+      author={Yigit Ekin and Enes Sanli and Aykut Erdem and Erkut Erdem and Aysegul Dundar},
+      year={2026},
+      eprint={2608.20107},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2608.20107}, 
+}
 ```
