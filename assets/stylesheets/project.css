@@ -235,3 +235,34 @@ footer{color:#667386}
 @media (max-width:800px){
   .stats div:nth-child(-n+2){border-bottom-color:var(--line)}
 }
+.hero-video-frame {
+  width: min(1040px, 100%);
+  margin: 56px auto 0;
+  padding: 10px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: var(--shadow, 0 20px 50px rgba(27, 39, 64, 0.12));
+}
+
+.hero-video-frame video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  background: #000000;
+  object-fit: contain;
+}
+
+@media (max-width: 540px) {
+  .hero-video-frame {
+    margin-top: 38px;
+    padding: 5px;
+    border-radius: 14px;
+  }
+
+  .hero-video-frame video {
+    border-radius: 9px;
+  }
+}
